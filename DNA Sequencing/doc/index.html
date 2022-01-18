@@ -1,0 +1,237 @@
+<html><head></head><body><hr/>
+
+<h1>CS 1410: DNA Sequencing</h1>
+
+<hr/>
+
+<p>Formatted instructions here: <a href="http://cit.dixie.edu/cs/1410/labs/dna_sequencing.php">http://cit.dixie.edu/cs/1410/labs/dna_sequencing.php</a></p>
+
+<h2>Human Genome Project</h2>
+
+<p>In order to complete the Human Genome Project, geneticists were required to
+sequence DNA. This process determines the correct order of DNA strands, which
+are made from four bases: adenine <code>A</code>, guanine <code>G</code>, cytosine <code>C</code>, and thymine
+<code>T</code>. To do this, the ends of two incomplete DNA strands are compared to see if
+they match when overlapped. If so, it is possible that these DNA strands are two
+pieces of a larger whole. Essentially, the goal of DNA sequencing is to piece
+together tiny fragments of the much larger original, called a genome.</p>
+
+<p>Here is an example of two DNA strands that match when overlapped:</p>
+
+<pre><code class="language-language-text">Strand 1: ACGGACATAGTCATT
+Strand 2:      CATAGTCATTTCATG
+Combined: ACGGACATAGTCATTTCATG
+</code></pre>
+
+<hr/>
+
+<h2>Assignment</h2>
+
+<p>You will make a program to find the best match between a target DNA strand and
+several candidate DNA strands. Your program will read the target DNA strand from
+one file (containing just one line) and the candidate DNA strands from a second
+file (containing one line for each of the candidate DNA strands). See the
+examples below.</p>
+
+<p>target_strand.txt:</p>
+
+<pre><code class="language-language-text">TTATAGTGATATACGTGCTTAGGTAGTGCAGAGACACAACTTATAGAGTGAGGCCAGCTCACGAGCTCTAGAAGCCCAAA
+</code></pre>
+
+<p>candidate_strands.txt:</p>
+
+<pre><code class="language-language-text">TATTGTGCTCTATAGCTCCAGGCACATCCCTTGACGGATTGGGGACTGTCTTGACGAAAGTTCGGAGGTAGAAAAGTCCA
+GACGACACCCTGGCAAAGGTCACGTCATGGGTGGAGTACTTATACCGGCAGCAGAGCGATCTGCTACCTATCTTCATGAT
+CACGAGCTCTAGAAGCCCAAACTGTGACGCAATTGCCGGGCTAAAACTATGCTAAGAAATCCCCATTACCAGAGTCTTAG
+TGAGCCGTTGGGCAGTTAACGGATTTTACTCGTCGCTGCCTGAAGTGCCAAATTTACCAAAAACCGGATAACTTCATGCA
+CTTATAGAGTGAGGCCAGCTCACGAGCTCTAGAAGCCCAAATTGCTACTGTGCCGCTGCGCACCGCATGATCGCAGTCAG
+TTAGAGGAATTGGACGGCACTCGGACACAAGCTCACGCCCCATACTTTAGCACCGAATATCGACTAAGCATAGTTGATCT
+AGCAAGAGTTGGTATCTCTAGGGGCTTCTCCGGACGCAACGACGCGTCTGACAGTTCAGGTTGTTATGACCCGGGTGTGA
+CTATGGTTAGGCAACTTCCACGCTATCCCTCGACCACGGCTCGTGGAGCCGTACCGGTGTATTTTGTTGCTGCTAATATT
+GTAGCACGCAGTTCGAGTCACCCGGAAGCAGCGAAACGTTCGGCAACTACAAACTCCAATCTTGTATTCGGGTGCCTTTT
+CGATTGTCTGTGTTCTGCATGAGCACAATAAGTACAAGTCGAACTGGTATTTACTAAAGTCCGCATATTGTACGGTACGT
+</code></pre>
+
+<p>In order to determine which candidate strand is the best match, you should
+compare the target strand to each of the candidate strands. The best match is
+the candidate strand with the largest number of overlapping bases (the number of
+contiguous bases that are in common). For example, the two strands shown above
+have 10 overlapping bases. To make your job easier, simply compare the end of
+the target strand to the beginning of each candidate strand (you do not need to
+compare the beginning of the target strand to the ends of the candidate
+strands).</p>
+
+<hr/>
+
+<h2>Instructions</h2>
+
+<p>You should write your code in file named <code>dna.py</code>.</p>
+
+<p>You should complete each function one-at-a-time. You are welcome and encouraged
+to take a look at the unittest files and see how they work. There are basically
+several automated calls to your code that check for expected outcome.</p>
+
+<p>Your assignment is to create the following functions. The functionality for each
+function is described below. You must follow the specifications exactly, but may
+choose your own method for solving the problem described for each. Once you have
+completed a function you should run the unittest for that function and have it
+pass all tests. Fix any errors, warnings, and/or failures.</p>
+
+<ul>
+<li><code>fileToList</code></li>
+<li><code>returnFirstString</code></li>
+<li><code>strandsAreNotEmpty</code></li>
+<li><code>strandsAreEqualLengths</code></li>
+<li><code>candidateOverlapsTarget</code></li>
+<li><code>findLargestOverlap</code></li>
+<li><code>findBestCandidate</code></li>
+<li><code>joinTwoStrands</code></li>
+<li><code>main</code></li>
+</ul>
+
+<hr/>
+
+<h3><code>fileToList</code></h3>
+
+<p>The function <code>fileToList</code> receives one parameter <code>filename</code> a string. It should
+return a list of the lines in the file. <em>Remove the newline character from the
+end of each line.</em> If the file is empty or does not exist return an empty list.</p>
+
+<pre><code class="language-language-python">fileToList(&#39;tar_easy.txt&#39;) -&gt; [&#39;ABCDEFG&#39;]
+fileToList(&#39;can_easy.txt&#39;) -&gt; [&#39;GHHHHHH&#39;, &#39;FGHHHHH&#39;, &#39;EFGHHHH&#39;, &#39;CDEFGHH&#39;, &#39;DEFGHHH&#39;]
+fileToList(&#39;empty_file.txt&#39;) -&gt; []
+fileToList(&#39;file_does_not_exist.txt&#39;) -&gt; []
+</code></pre>
+
+<hr/>
+
+<h3><code>returnFirstString</code></h3>
+
+<p>The function <code>returnFirstString</code> receives one parameter <code>strings</code> a list of
+strings and returns the first string. If the list is empty the function should
+return an empty string.</p>
+
+<pre><code class="language-language-python">returnFirstString([&#39;aaa&#39;, &#39;bbb&#39;, &#39;ccc&#39;]) -&gt; &#39;aaa&#39;
+returnFirstString([]) -&gt; &#39;&#39;
+</code></pre>
+
+<hr/>
+
+<h3><code>strandsAreNotEmpty</code></h3>
+
+<p>The function <code>strandsAreNotEmpty</code> receives two parameters <code>strand1</code> and
+<code>strand2</code>, both strings. It returns <code>True</code> if both strands have a length greater
+than zero, or <code>False</code> otherwise.</p>
+
+<pre><code class="language-language-python">strandsAreNotEmpty(&#39;&#39;, &#39;aaa&#39;) -&gt; False
+strandsAreNotEmpty(&#39;aaa&#39;, &#39;bbb&#39;) -&gt; True
+strandsAreNotEmpty(&#39;aaa&#39;, &#39;&#39;) -&gt; False
+</code></pre>
+
+<hr/>
+
+<h3><code>strandsAreEqualLengths</code></h3>
+
+<p>The function <code>strandsAreEqualLengths</code> receives two parameters <code>strand1</code> and
+<code>strand2</code>, both strings. It returns <code>True</code> if the length of both strands are
+equal or <code>False</code> otherwise.</p>
+
+<pre><code class="language-language-python">strandsAreEqualLengths(&#39;aaa&#39;, &#39;bbb&#39;) -&gt; True
+strandsAreEqualLengths(&#39;aa&#39;, &#39;bbb&#39;) -&gt; False
+strandsAreEqualLengths(&#39;aaa&#39;, &#39;bb&#39;) -&gt; False
+</code></pre>
+
+<hr/>
+
+<h3><code>candidateOverlapsTarget</code></h3>
+
+<p>The function <code>cadidateOverlapsTarget</code> receives three parameters <code>target</code> a
+string, <code>candidate</code> a string, and <code>overlap</code> an integer. It checks to see if the
+target and candidate strands have an overlap of <code>overlap</code> characters. The
+function should return <code>True</code> if they overlap or <code>False</code> otherwise.</p>
+
+<pre><code class="language-language-python">target = &#39;ABBBBBA&#39;
+candidate = &#39;BABBBAA&#39;
+candidateOverlapsTarget(target, candidate, 1) -&gt; False
+candidateOverlapsTarget(target, candidate, 2) -&gt; True
+candidateOverlapsTarget(target, candidate, 3) -&gt; False
+candidateOverlapsTarget(target, candidate, 4) -&gt; False
+candidateOverlapsTarget(target, candidate, 5) -&gt; False
+candidateOverlapsTarget(target, candidate, 6) -&gt; False
+candidateOverlapsTarget(target, candidate, 7) -&gt; False
+</code></pre>
+
+<hr/>
+
+<h3><code>findLargestOverlap</code></h3>
+
+<p>The function <code>findLargestOverlap</code> receives two parameters <code>target</code> and
+<code>candidate</code>, both strings. It should find the largest overlap and return the
+size of the overlap. If either strand is empty or the strands are not the same
+length, return <code>-1</code>. Use the functions you have already written,
+strandsAreNotEmpty and strandsAreEqualLengths.</p>
+
+<pre><code class="language-language-python">findLargestOverlap(&#39;abcd&#39;,&#39;cdef&#39;) -&gt; 2
+findLargestOverlap(&#39;TAGGAG&#39;, &#39;GGTAGA&#39;) -&gt; 1
+findLargestOverlap(&#39;aaaa&#39;, &#39;bbbb&#39;) -&gt; 0
+findLargestOverlap(&#39;&#39;, &#39;hijk&#39;) -&gt; -1
+findLargestOverlap(&#39;abc&#39;, &#39;abcd&#39;) -&gt; -1
+</code></pre>
+
+<hr/>
+
+<h3><code>findBestCandidate</code></h3>
+
+<p>The function <code>findBestCandidate</code> receives two parameters <code>target</code> a string, and
+<code>candidates</code> a list of strings. It examines each candidate in the candidates
+list and determines the candidate with the largest overlap. You can use the
+function findLargestOverlap to do this. If two candidates have the same overlap
+keep the first one. The function returns a tuple containing the candidate string
+with the largest overlap and the overlap. If no candidates overlap you should
+return an empty string for the candidate and 0 for the overlap.</p>
+
+<pre><code class="language-language-python">findBestCandidate(&#39;ABC&#39;, [&#39;BBC&#39;, &#39;BCC&#39;, &#39;BCA&#39;, &#39;CBA&#39;]) -&gt; (&#39;BCC&#39;, 2)
+findBestCandidate(&#39;AAA&#39;, [&#39;BBB&#39;, &#39;CCC&#39;]) -&gt; (&#39;&#39;, 0)
+findBestCandidate(&#39;ABCD&#39;, [&#39;ABCC&#39;, &#39;CDCD&#39;, &#39;BCDE&#39;]) -&gt; (&#39;BCDE&#39;, 3)
+</code></pre>
+
+<hr/>
+
+<h3><code>joinTwoStrands</code></h3>
+
+<p>The function <code>joinTwoStrands</code> receives three parameters <code>target</code> a string,
+<code>candidate</code> a string, and <code>overlap</code> an integer. It joins the target and
+candidate strands together merging them and returns the joined strand.</p>
+
+<pre><code class="language-language-python">joinTwoStrands(&#39;abcef&#39;, &#39;cefgh&#39;, 3) -&gt; &#39;abcefgh&#39;
+joinTwoStrands(&#39;TAGAGGT&#39;, &#39;AGGTTTG&#39;, 4) -&gt; &#39;TAGAGGTTTG&#39;
+joinTwoStrands(&#39;TAGAGGT&#39;, &#39;&#39;, 0) -&gt; &#39;TAGAGGT&#39;
+</code></pre>
+
+<hr/>
+
+<h3><code>main</code></h3>
+
+<p>The function <code>main</code> receives no parameters and returns nothing. The function
+should start by asking the user for the filename of the target strand file and
+candidate strands file (hint: use functions; fileToList, returnFirstString).
+After determining which of the candidate DNA strands is the best match (hint:
+use findBestCandidate), print the combined strand (hint: use joinTwoStrands).</p>
+
+<pre class="language-bash command-line" data-output="2-4" data-prompt="$ "><code class="language-bash">python dna.py
+Target strand filename: tar1.txt
+Candidate strands filename: can1.txt
+GTCGCGTTCAGGCGCATTAAGTTAGTCGGAG</code></pre>
+
+<hr/>
+
+<h3>Finishing Up</h3>
+
+<p>Lastly add this snippet at the bottom of your file which will execute your
+<code>main()</code> function when you run dna.py but will allow it to be imported into the
+unittest files without executing the main function.</p>
+
+<pre><code class="language-language-python">if __name__ == &#39;__main__&#39;:
+    main()
+</code></pre>
+</body></html>
