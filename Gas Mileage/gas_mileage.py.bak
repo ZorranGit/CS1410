@@ -61,13 +61,16 @@ def getUserFloat(string):
             print ("Enter a valid float number")
             
 def getDate():
-    return getUserString('Date: ')
+    date=getUserString('Date: ')
+    return date
 
 def getMiles():
-    return getUserFloat('Miles : ')
+    miles=getUserFloat('Miles : ')
+    return miles
 
 def getGallons():
-    return getUserFloat('Gallons: ')
+    gallons=getUserFloat('Gallons: ')
+    return gallons
 
 def recordTripAction(notelist):
     date=getDate()
@@ -95,14 +98,13 @@ def quitAction(notelist):
     sys.exit( 0 )
     
 def applyAction(notelist,string):
-    string=string.upper() 
-    if string=='R':
+    if string=='r':
         recordTripAction(notelist)
-    elif string=='L':
+    elif string=='l':
         listTripsAction(notelist)
-    elif string=='C':
+    elif string=='c':
         calculateMPGAction(notelist)
-    elif string=='Q':
+    elif string=='q':
         quitAction(notelist)
     else:
         print ("That is not a valid option")
@@ -119,3 +121,7 @@ def main():
 
 if __name__=='__main__':
     main()
+
+
+
+
