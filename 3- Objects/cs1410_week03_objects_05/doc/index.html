@@ -1,0 +1,77 @@
+<html><head></head><body><h2>Exercise: query02</h2>
+
+<h3>Description</h3>
+
+<p>Write a function that receives a <code>Pencil</code> object as a parameter and returns the
+number of leads in that pencil.</p>
+
+<h3>Function Name</h3>
+
+<p><code>query02</code></p>
+
+<h3>Parameters</h3>
+
+<p><code>p</code>: A <code>Pencil</code> object</p>
+
+<h3>Return Value</h3>
+
+<p>The number of leads in the <code>Pencil</code> object <code>p</code>.</p>
+
+<h3>Example</h3>
+
+<pre><code>import pencil
+p = pencil.Pencil(3)
+print(query02(p)) # -&gt; 3
+</code></pre>
+
+<h2>Documentation</h2>
+
+<h3>constant <code>MAX_LEAD_LENGTH</code></h3>
+
+<p>The maximum length of any lead stick. Set to 10.</p>
+
+<p></p>
+
+<h3>constant <code>MAX_NUM_LEADS</code></h3>
+
+<p>The maximum amount of sticks that will fit inside of a Pencil object. Set to 5.</p>
+
+<p></p>
+
+<h3>type <code>Pencil</code></h3>
+
+<p><strong>Contructor:</strong></p>
+
+<p><code>Pencil(num_leads)</code></p>
+
+<p>Creates a pencil object. The parameter <code>num_leads</code> determines the amount of lead
+with which to initialize the Pencil object.</p>
+
+<p><strong>Methods:</strong></p>
+
+<p><code>get_num_leads()</code></p>
+
+<p>Returns the number of leads in the Pencil object. This does not count the lead
+that is extending from the pencil.</p>
+
+<p><code>get_current_lead_length()</code></p>
+
+<p>Returns the length of the lead extending from the pencil.</p>
+
+<p><code>click()</code></p>
+
+<p>&#34;Clicks&#34; the pencil, reducing the current lead length by one. If the current
+lead is used up, reduce the number of leads in the pencil by one and set the
+current lead length to the max lead length.</p>
+
+<p><code>add_leads(num_additional_leads)</code></p>
+
+<p>Adds lead sticks to the pencil. Only adds a positive number of sticks, up to the
+maximum number of lead.</p>
+
+<p><strong>Data members:</strong></p>
+
+<p><code>_num_leads</code>: the number of lead sticks in the barrel of the pencil.</p>
+
+<p><code>_current_lead_length</code>: the length of the lead stick extending from the pencil.</p>
+</body></html>
